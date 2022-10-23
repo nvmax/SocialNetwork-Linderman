@@ -1,39 +1,40 @@
 const {Schema, model, Types} = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const ReactionSchema = require('./reaction');
 
-// reaction schema
-const ReactionSchema = new Schema(
-    {
-        // reactionId schema type ObjectId, value is set to a new ObjectId
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId()
-        },
-        // reactionBody schema type string, 280 character maximum and required, trim true. 
-        reactionBody: {
-            type: String,
-            required: true,
-            trim: true,
-            maxlength: 280
-        },
-        // username schema type string, required.
-        username: {
-            type: String,
-            required: true,
-        },
-        // createdAt schema type Date, value is set to the current timestamp
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: createdAtVal => dateFormat(createdAtVal)
-        }
-    },
-    {
-        toJSON: {
-            getters: true
-        }
-    }
-);
+// // reaction schema
+// const ReactionSchema = new Schema(
+//     {
+//         // reactionId schema type ObjectId, value is set to a new ObjectId
+//         reactionId: {
+//             type: Schema.Types.ObjectId,
+//             default: () => new Types.ObjectId()
+//         },
+//         // reactionBody schema type string, 280 character maximum and required, trim true. 
+//         reactionBody: {
+//             type: String,
+//             required: true,
+//             trim: true,
+//             maxlength: 280
+//         },
+//         // username schema type string, required.
+//         username: {
+//             type: String,
+//             required: true,
+//         },
+//         // createdAt schema type Date, value is set to the current timestamp
+//         createdAt: {
+//             type: Date,
+//             default: Date.now,
+//             get: createdAtVal => dateFormat(createdAtVal)
+//         }
+//     },
+//     {
+//         toJSON: {
+//             getters: true
+//         }
+//     }
+// );
 
 // thought schema
 const ThoughtSchema = new Schema(
