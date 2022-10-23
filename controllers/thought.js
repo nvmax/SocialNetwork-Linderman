@@ -40,37 +40,37 @@ const thoughtController = {
     },
 
     // createThought method to create a thought
-    createThought({ body }, res) {
-        thought.create(body)
-            .then(({ _id }) => {
-                return User.findOneAndUpdate(
-                    { _id: body.userId },
-                    { $push: { thoughts: _id } },
-                    { new: true }
-                );
-            })
-            .then((dbThoughtData) => {
-                // If no user is found, send 404
-                if (!dbThoughtData) {
-                    res.status(404).json({ message: 'No user found with this id!' });
-                    return;
-                }
-                res.json(dbThoughtData);
-            })
-            .catch((err) => res.status(400).json(err));
-    },
+    // worked with Alec Otterson on this method to fix issues with creation of thoughts
+    createThought(req, res) {
+        thought.create(req.body)
+          .then((thought) => {
+            return User.findOneAndUpdate(
+              { _id: req.body.userid },
+              { $push: { thoughts: thought._id } },
+              { new: true, runValidators: true }
+            );
+          })
+          .then((user) => {
+            if (!user) {
+              res.status(404).json({ message: "No thought with that ID" });
+              return;
+            }
+            res.json(user);
+          })
+          // res.json(thought))
+          .catch((err) => res.status(500).json(err.message));
+      },
     // updateThought method to update a thought by its _id and return the updated thought
     updateThought({ params, body }, res) {
         thought.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
-            .then((dbThoughtData) => {
+            .then(dbThoughtData => {
                 if (!dbThoughtData) {
-                    // If no thought is found, send 404
                     res.status(404).json({ message: 'No thought found with this id!' });
                     return;
                 }
                 res.json(dbThoughtData);
             })
-            .catch((err) => res.status(400).json(err));
+            .catch(err => res.status(400).json(err));
     },
 
     // add reaction method to add a reaction to a thought
@@ -123,7 +123,7 @@ const thoughtController = {
                 }
                 res.json(dbUserData);
             })
-            .catch((err) => res.json(err));
+            .catch((err) => res.json(err.message));
     }
 };
 
