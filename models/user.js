@@ -16,7 +16,7 @@ const UserSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            match: [/.+@.+\..+/, 'Must match a valid email address!']
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Must use a valid email address']
         },
         // thoughts schema type array, data will be populated by the thought model's ObjectId
         thoughts: [
