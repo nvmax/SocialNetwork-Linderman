@@ -83,7 +83,7 @@ const thoughtController = {
             .then((dbThoughtData) => {
                 if (!dbThoughtData) {
                     // If no thought is found, send 404
-                    res.status(404).json({ message: 'No thought found with this id!' });
+                    res.status(404).json({ message: 'No Thought found with this id!' });
                     return;
                 }
                 res.json(dbThoughtData);
@@ -98,9 +98,18 @@ const thoughtController = {
             { $pull: { reactions: { reactionId: params.reactionId } } },
             { new: true }
         )
-            .then((dbThoughtData) => res.json(dbThoughtData))
-            .catch((err) => res.json(err));
+        // let user now when the reaction is deleted 
+            .then((dbThoughtData) => {
+                if (!dbThoughtData) {
+                    // If no thought is found, send 404
+                    res.status(404).json({ message: 'No reaction found with this id!' });
+                    return;
+                }
+                res.json({ message: 'Reaction deleted!' });
+            })
+            .catch((err) => res.status(400).json(err));
     },
+    
 
     // deleteThought method to remove a thought by its _id
     deleteThought({ params }, res) {
