@@ -28,7 +28,9 @@
   
   SocialNetwork-Linderman</h1>
 
-  https://drive.google.com/file/d/1DhZU65kcEKPKe5ZiXsa5MUJha1O9st8f/view?usp=sharing
+  Link to video below:
+
+  [Click to watch the video!](https://drive.google.com/file/d/1DhZU65kcEKPKe5ZiXsa5MUJha1O9st8f/view?usp=sharing)
   
   
   ## Table of Contents:
